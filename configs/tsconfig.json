@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "module": "ESNext",
+    "target": "ESNext",
+    "rootDir": "packages",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "types": ["node"],
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "removeComments": true,
+    "declaration": true,
+    "declarationMap": false,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": false,
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "typeRoots": [ "../node_modules/@types" ],
+    "paths": {
+        "@config": ["pachages/core/configs"],
+        "@helpers": ["pachages/core/helpers"],
+        "@type": ["pachages/core/types"],
+    }
+  },
+  "include": [
+    "packages",
+    "packages/**/package.json",
+  ],
+  "ts-node": {
+      "require": ["tsconfig-paths/register"]
+  },
+  "require": [
+      "ts-node/register/transpile-only"
+  ],
+  "exclude": [
+    "node_modules",
+    "cdk.out"
+  ],
+}

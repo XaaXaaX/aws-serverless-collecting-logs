@@ -1,8 +1,27 @@
-*.js
-!jest.config.js
-*.d.ts
+# git related
+.git
+
+# Dev and CI 
+.vs
+.DS_Store
+.scannerwork
+.nx
+
 node_modules
 
 # CDK asset staging directory
 .cdk.staging
 cdk.out
+
+# Testing
+coverage
+reports
+
+# Build
+dist
+build
+
+*.js
+!jest.config.js
+*.d.ts
+node_modules

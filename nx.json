@@ -1,0 +1,77 @@
+{
+  "extends": "nx/presets/npm.json",
+  "targetDefaults": {
+    "cdk": {
+      "dependsOn": [
+        {
+          "projects": "@xaaxaax/observability-core",
+          "target": "cdk",
+          "params": "forward",
+          "required": [
+            "projects",
+            "target"
+          ]
+        }
+      ]
+    },
+    "build": {
+      "dependsOn": [
+        {
+          "projects": "@xaaxaax/observability-core",
+          "target": "build",
+          "params": "forward",
+          "required": [
+            "projects",
+            "target"
+          ]
+        }
+      ]
+    }
+  },
+  "release": {
+    "projects": [
+      "*"
+    ],
+    "projectsRelationship": "independent",
+    "releaseTagPattern": "{projectName}@{version}",
+    "version": {
+      "generatorOptions": {
+        "currentVersionResolver": "git-tag",
+        "specifierSource": "conventional-commits",
+        "fallbackCurrentVersionResolver": "disk"
+      }
+    },
+    "changelog": {
+      "workspaceChangelog": false,
+      "automaticFromRef": true,
+      "projectChangelogs": {
+        "createRelease": "github"
+      }
+    },
+    "git": {
+      "commit": true,
+      "tag": true,
+      "stageChanges": true
+    }
+  },
+  "namedInputs": {
+    "noMarkdown": [
+      "!{projectRoot}/**/*.md"
+    ],
+    "noTestChange": [
+      "!{projectRoot}/**/*.spec.*",
+      "!{projectRoot}/**/*.test.*"
+    ],
+    "publish": [
+      "noMarkdown",
+      "noTestChange",
+      "pnpm-workspace.yaml",
+      "pnpm-lock.yaml",
+      "nx.json",
+      "!{projectRoot}/**/*.eslintrc*",
+      "!{projectRoot}/**/jest.config.*",
+      "!{projectRoot}/**/tsconfig.json"
+    ]
+  },
+  "defaultBase": "main"
+}

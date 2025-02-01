@@ -1,11 +1,16 @@
-# Boilerplate repo temlplate
+# Sidecar pattern for Logs Aggregation
 
-To create a new repository from template simply select the template in repo creation page.
+The repository provide examples to design sidecar pattern while using aws serverless compute services ( Lambda , Fargate ).
 
-To update an existing repo from a template follow follloing instructions
-```shell
- git remote add template https://github.com/XaaXaaX/new-project-boilerplate.git
- git fetch --all
- git merge template/main --allow-unrelated-histories
+source article: [serverless folks](https://serverlessfolks.com/sidecar-pattern-in-serverless-design)
 
-```
+
+The following scenarios are covered:
+
+- Cloudwatch Subscription Filters
+- AWS Lambda Zip package with Extensions
+- AWS Lambda Custom Image with Extensions
+- AWS Lambda Web Adapter Image with Extensions
+- AWS Fargate with sidecar
+
+![alt text](./assets/image.png)
