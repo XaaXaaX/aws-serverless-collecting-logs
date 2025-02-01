@@ -1,0 +1,30 @@
+{
+  "name": "@xaaxaax/lambda-zip",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "index.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xaaxaax/aws-serverless-collecting-logs.git",
+    "directory": "packages/lambda-zip"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist build bin cdk.out",
+    "build": "pnpm run build:tsc && pnpm run build:esbuild",
+    "build:tsc": "tsc --noemit",
+    "build:esbuild": "esbuild src/handler.ts --bundle --minify --sourcemap --outdir=./dist  --allow-overwrite --entry-names=[dir]/[name]",
+    "precdk": "pnpm run build",
+    "cdk": "cdk --profile admin@dev --app 'tsx ./cdk/bin/app.ts' -c env=dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

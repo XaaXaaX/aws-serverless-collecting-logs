@@ -1,30 +1,38 @@
 {
-  "name": "cdk",
-  "version": "0.1.0",
-  "bin": {
-    "cdk": "bin/cdk.js"
+  "name": "root",
+  "version": "1.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xaaxaax/aws-serverless-collecting-logs.git"
   },
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "test": "jest",
-    "cdk:run": "cdk --profile serverless --app 'npx ts-node --prefer-ts-exts ./cdk/bin/app.ts'",
-    "cdk:infra": "npm run cdk:run -- -c env=dev"
+    "nx:clean:all": "nx run-many --target=prebuild --output-style static --skip-nx-cache",
+    "nx:test:all": "node --test --import tsx --experimental-strip-types",
+    "nx:build:all": "pnpm run nx:clean:all && nx run-many --target=build --output-style static --skip-nx-cache",
+    "nx:cdk:all": "nx run-many --target=cdk --output-style static --skip-nx-cache --require-approval never",
+    "nx:version:all": "nx release --skip-publish",
+    "affected:test": "nx affected --target=test --parallel=3",
+    "affected:build": "nx affected --target=build --parallel=3"
   },
   "devDependencies": {
+    "@nx/js": "^20.2.1",
     "@types/aws-lambda": "^8.10.147",
-    "@types/jest": "^29.5.14",
-    "@types/node": "^22.10.5",
+    "@types/node": "^22.10.7",
+    "@xaaxaax/cdk-core": "workspace:*",
     "aws-cdk": "^2.175.1",
     "aws-cdk-lib": "^2.175.1",
-    "constructs": "^10.4.2",
     "cdk-nag": "^2.34.23",
+    "constructs": "^10.4.2",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^7.3.0",
     "esbuild": "^0.24.2",
-    "jest": "^29.7.0",
-    "ts-jest": "^29.2.5",
+    "nx": "^20.2.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.7.3"
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.17.0"
   },
   "dependencies": {
     "source-map-support": "^0.5.21"

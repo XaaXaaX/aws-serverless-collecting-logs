@@ -1,0 +1,29 @@
+{
+  "name": "@xaaxaax/cdk-core",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "index.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xaaxaax/aws-serverless-collecting-logs.git",
+    "directory": "packages/core"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist build bin cdk.out",
+    "build": "pnpm run build:esbuild && pnpm run build:tsc",
+    "build:tsc": "tsc --declaration",
+    "build:esbuild": "esbuild index.ts --bundle --minify --platform=node --sourcemap --outdir=./dist  --allow-overwrite"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

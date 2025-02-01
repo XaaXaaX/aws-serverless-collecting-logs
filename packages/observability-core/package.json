@@ -1,0 +1,40 @@
+{
+  "name": "@xaaxaax/observability-core",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "index.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xaaxaax/aws-serverless-collecting-logs.git",
+    "directory": "packages/observability-core"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist build bin cdk.out",
+    "build": "cross-env BUILD_PATH=./build EXTENSION_NAME=kinesis-telemetry-extension npm run prepare:build",
+    "prepare:build": "pnpm run build:tsc && node esbuild.config.js && pnpm run prepare:asset",
+    "prepare:asset": "cp -r extensions $BUILD_PATH/extensions",
+    "build:tsc": "tsc --noemit",
+    "docker:build": "docker buildx build --platform linux/arm64 --no-cache -t $ECR_REPOSITORY:latest .",
+    "postdocker:build": "pnpm run docker:login && pnpm run docker:tag && pnpm run docker:push",
+    "docker:login": "aws ecr get-login-password --region $REGION --profile admin@dev | docker login --username AWS --password-stdin $ECR_URI",
+    "docker:tag": "docker tag $ECR_REPOSITORY:latest $ECR_URI/$ECR_REPOSITORY:latest",
+    "docker:push": "docker push $ECR_URI/$ECR_REPOSITORY:latest",
+    "cdk": "cdk --profile admin@dev --app 'tsx ./cdk/bin/app.ts' -c env=dev",
+    "//": "cross-env REGION=eu-west-1 ECR_URI=904233108557.dkr.ecr.eu-west-1.amazonaws.com ECR_REPOSITORY=lambda-telemetry-image pnpm run docker:build"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-kinesis": "^3.462.0",
+    "@smithy/node-http-handler": "^4.0.2"
+  }
+}

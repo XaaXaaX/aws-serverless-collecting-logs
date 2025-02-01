@@ -1,0 +1,7 @@
+packages:
+  - "packages/**"
+  - "!packages/subscription-filter"
+  - "!packages/lambda-zip"
+  - "!packages/lambda-custom-image"
+  - "!packages/lambda-web-adapter"
+  - "!packages/fargate-task"

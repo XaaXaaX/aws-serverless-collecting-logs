@@ -1,0 +1,31 @@
+{
+  "name": "@xaaxaax/lambda-web-adapter",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "source": "index.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xaaxaax/aws-serverless-collecting-logs.git",
+    "directory": "packages/lambda-web-adapter"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist build bin cdk.out",
+    "build": "pnpm run build:tsc && pnpm run build:esbuild",
+    "build:tsc": "tsc --noemit",
+    "build:esbuild": "esbuild src/index.ts --bundle --minify --sourcemap --platform=node --outdir=./dist  --allow-overwrite --entry-names=[dir]/[name] --main-fields=module,main",
+    "build:docker": "docker buildx build --platform linux/arm64 --no-cache -t lambda-web-adapter:latest .",
+    "precdk": "pnpm run build && pnpm run build:docker",
+    "cdk": "cdk --profile admin@dev --app 'tsx ./cdk/bin/app.ts' -c env=dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
